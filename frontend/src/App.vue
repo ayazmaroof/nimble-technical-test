@@ -1,40 +1,39 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router';
 import { onMounted, ref } from 'vue';
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { useRouter} from 'vue-router';
 
+const router = useRouter();
 const isLoggedIn = ref(false);
 
 let auth;
 onMounted(() => {
   auth = getAuth();
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      isLoggedIn.value = true;
-    } else {
-      isLoggedIn.value = false;
-    }
-  })
+    isLoggedIn.value = !!user;
+  });
 });
+
+const handleSignOut = () => {
+  signOut(auth).then(() => {
+    router.push('/')
+  });
+};
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-      <p v-if='isLoggedIn'>You are logged in!</p>
-      <p v-if='isLoggedIn'>{{ auth.currentUser.email }}</p>
+      <p v-if="isLoggedIn">You are logged in!</p>
+      <p v-if="isLoggedIn">{{ auth.currentUser.email }}</p>
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/register">Register</RouterLink>
+        <RouterLink v-if="!isLoggedIn" to="/register">Register</RouterLink>
+        <RouterLink v-if="!isLoggedIn" to="/login">Login</RouterLink>
+        <button @click="handleSignOut" v-if="isLoggedIn">Sign Out</button>
       </nav>
     </div>
-  </header>
 
   <RouterView />
 </template>
@@ -94,7 +93,6 @@ nav a:first-of-type {
 
   nav {
     text-align: left;
-    margin-left: -1rem;
     font-size: 1rem;
 
     padding: 1rem 0;
