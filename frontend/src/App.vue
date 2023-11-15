@@ -23,16 +23,28 @@ const handleSignOut = () => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <nav class="bg-gray-100">
+    <div class="px-8 mx-auto border">
+      <div class="flex space-x-1">
+        <RouterLink class="py-5 px-2 text-gray-700 hover:text-gray-900" to="/">Home</RouterLink>
+        <RouterLink
+          class="py-5 px-2 text-gray-700 hover:text-gray-900"
+          v-if="!isLoggedIn"
+          to="/register">Register
+        </RouterLink>
+        <RouterLink
+          class="py-5 px-2 text-gray-700 hover:text-gray-900"
+          v-if="!isLoggedIn"
+          to="/login">Login
+        </RouterLink>
+        <button @click="handleSignOut" v-if="isLoggedIn">Sign Out</button>
+      </div>
+    </div>
+    <div></div>
+  </nav>
+  <div>
     <p v-if="isLoggedIn">You are logged in!</p>
     <p v-if="isLoggedIn">{{ auth.currentUser.email }}</p>
-
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink v-if="!isLoggedIn" to="/register">Register</RouterLink>
-      <RouterLink v-if="!isLoggedIn" to="/login">Login</RouterLink>
-      <button @click="handleSignOut" v-if="isLoggedIn">Sign Out</button>
-    </nav>
   </div>
 
   <RouterView />

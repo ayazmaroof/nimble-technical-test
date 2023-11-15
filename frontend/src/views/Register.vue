@@ -1,8 +1,23 @@
 <template>
-  <div>
-    <p><input type="text" placeholder="Email" v-model="email" /></p>
-    <p><input type="password" placeholder="Password" v-model="password" /></p>
-    <p><button @click="register">Submit</button></p>
+  <div class="container mx-auto p-10">
+    <div class="flex flex-col mx-auto items-center gap-y-3">
+      <input
+        class="w-4/12 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 pl-2"
+        type="text"
+        placeholder="Email"
+        v-model="email"
+      />
+      <input
+        class="w-4/12 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 pl-2"
+        type="password"
+        placeholder="Password"
+        v-model="password"
+      />
+      <button
+        class="w-1/12 rounded-md shadow-sm bg-blue-500 p-2 text-sm font-semibold text-white hover:bg-blue-400"
+        @click="register">Submit
+      </button>
+    </div>
   </div>
 </template>
 
