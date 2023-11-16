@@ -33,11 +33,9 @@ const router = useRouter();
 const register = () => {
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
-      console.log('You are registered!');
       router.push('/');
     })
     .catch((error) => {
-      console.log(error.code);
       alert(error.message);
     });
 };
