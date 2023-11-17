@@ -37,6 +37,11 @@ const handleSignOut = () => {
           v-if="!isLoggedIn"
           to="/login">Login
         </RouterLink>
+        <RouterLink
+          class="py-5 px-2 text-gray-700 hover:text-gray-900"
+          v-if="isLoggedIn"
+          to="/report">Keywords
+        </RouterLink>
         <button @click="handleSignOut" v-if="isLoggedIn">Sign Out</button>
       </div>
     </div>
