@@ -1,23 +1,19 @@
 import './assets/main.sass';
-
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import { initializeApp } from 'firebase/app';
-
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
-};
-
-initializeApp(firebaseConfig);
+import { VueFire, VueFireAuth } from 'vuefire';
+import { firebaseApp } from './firebase';
 
 const app = createApp(App);
 
+app.use(VueFire, {
+  firebaseApp,
+  modules: [
+    VueFireAuth
+  ]
+})
 app.use(router);
+
 
 app.mount('#app');
