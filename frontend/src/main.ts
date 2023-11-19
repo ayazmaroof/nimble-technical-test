@@ -7,13 +7,14 @@ import { firebaseApp } from './firebase';
 
 const app = createApp(App);
 
+app.use(router);
 app.use(VueFire, {
   firebaseApp,
   modules: [
     VueFireAuth
   ]
-})
-app.use(router);
+} as any)
+
 
 
 app.mount('#app');

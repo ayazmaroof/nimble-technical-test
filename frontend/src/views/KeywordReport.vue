@@ -37,9 +37,9 @@ const {
 } = useStorageFile(fileRef);
 
 const fileUpload = () => {
-  const data = files.value?.item(0)
+  const data = files.value?.item(0);
   if (data) {
-    upload(data)
+    upload(data)!
       .then(() => {
         reset();
       })

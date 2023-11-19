@@ -2,12 +2,13 @@
 import { RouterLink, RouterView } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { type Auth } from '@firebase/auth'
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const isLoggedIn = ref(false);
 
-let auth;
+let auth: Auth;
 onMounted(() => {
   auth = getAuth();
   onAuthStateChanged(auth, (user) => {
@@ -49,7 +50,7 @@ const handleSignOut = () => {
   </nav>
   <div>
     <p v-if="isLoggedIn">You are logged in!</p>
-    <p v-if="isLoggedIn">{{ auth.currentUser.email }}</p>
+    <p v-if="isLoggedIn">{{ auth.currentUser?.email }}</p>
   </div>
 
   <RouterView />
